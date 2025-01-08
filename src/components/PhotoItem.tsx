@@ -1,20 +1,27 @@
-
-
 interface PhotoItemProps {
   photo: {
     id: string;
-  description: string;
-  urls: {
-    small: string;
-  };
+    alternative_slugs: {
+      pt?: string;
+    };
+    urls: {
+      small: string;
+    };
   };
 }
 
-const PhotoItem: React.FC<PhotoItemProps> = ({ photo }) => {
+const PhotoItem = ({ photo }: PhotoItemProps): JSX.Element => {
+  const cleanSlug = (slug: string | undefined) => {
+    if (!slug) return "";
+    return slug.replace(/-\w+$/, "").replace(/-/g, " ");
+  };
   return (
-    <div className="relative">
-      <img src={photo.urls.small} alt={photo.description} className="w-full h-auto" />
-      <div className="text-center mt-2">{photo.description}</div>
+    <div className="">
+      <img
+        src={photo.urls.small}
+        alt={cleanSlug(photo.alternative_slugs.pt)}
+        className="w-full h-auto"
+      />
     </div>
   );
 };
