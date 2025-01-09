@@ -21,6 +21,7 @@ const PhotoGrid = () => {
 
   const fetchPhotos = async () => {
     setLoading(true);
+    setError(null);
     try {
       const apiKey = import.meta.env.VITE_APP_UNSPLASH_API_KEY;
 
@@ -28,27 +29,23 @@ const PhotoGrid = () => {
         params: {
           client_id: apiKey,
           query: searchTerm,
-          per_page:5,
+          per_page: 5,
           lang: "pt",
         },
       });
 
       setPhotos(resp.data.results);
-
     } catch (err) {
-      setError(err.message);
-  
+      setError(err.message || "Erro ao buscar fotos. Tente novamente.");
     } finally {
       setTimeout(() => {
         setLoading(false);
-       setPhotos([])
       }, 1250);
-
     }
   };
   useEffect(() => {
     if (searchTerm.trim() === "") {
-      setPhotos([]); 
+      setPhotos([]);
     } else {
       fetchPhotos();
     }
@@ -63,7 +60,6 @@ const PhotoGrid = () => {
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
   );
-  
 
   return (
     <div className="p-4">
@@ -87,13 +83,14 @@ const PhotoGrid = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 place-items-center mt-10">
         {filteredPhotos.length > 0
           ? filteredPhotos.map((photo) => (
-              <div key={photo.id} className=""
-               >
+              <div key={photo.id} className="">
                 <motion.div
-                whileHover={{
-                  scale: 1.1, 
-                  rotate: 2, 
-                  transition: { type: "spring", stiffness: 300, damping: 20 },}}>
+                  whileHover={{
+                    scale: 1.1,
+                    rotate: 2,
+                    transition: { type: "spring", stiffness: 300, damping: 20 },
+                  }}
+                >
                   <motion.img
                     src={photo.urls.small}
                     alt={cleanSlug(photo.alternative_slugs.pt)}
@@ -109,9 +106,11 @@ const PhotoGrid = () => {
             ))
           : !loading && (
               <div className="col-span-3 text-center">
-                {error && searchTerm && (
-                  <p className="text-red-500">nenhuma foto encontrada</p>
-                )}{" "}
+                {error ? (
+                  <p className="text-red-500">Nenhuma foto encontrada</p>
+                ) : (
+                  <p className="text-red-500">Nenhuma foto encontrada</p>
+                )}
               </div>
             )}
       </div>
