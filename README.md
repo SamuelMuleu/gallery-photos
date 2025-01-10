@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# PhotoGrid
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PhotoGrid é uma aplicação React que permite pesquisar e visualizar fotos usando a API do Unsplash.
 
-Currently, two official plugins are available:
+## Demonstração
+Você pode acessar a versão hospedada da aplicação [aqui](https://galleryphotostest.netlify.app/).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- **React**: Biblioteca JavaScript para construção de interfaces de usuário.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estática ao código.
+- **Axios**: Cliente HTTP para fazer requisições à API do Unsplash.
+- **motion**: Biblioteca para animações.
+- **Tailwind CSS**: Framework CSS para estilização.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Pré-requisitos
 
-- Configure the top-level `parserOptions` property like this:
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+- Node.js
+- npm ou yarn
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Rodando a Aplicação Localmente
+
+1. **Clone o repositório:**
+
+```bash
+git clone https://github.com/SamuelMuleu/gallery-photos.git
 ```
+Instale as dependências:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Se estiver usando npm:
+```bash
+npm install
+```
+Ou, se estiver usando yarn:
+```bash
+yarn install
+```
+Configure a chave da API do Unsplash:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Crie um arquivo .env.local na raiz do projeto e adicione a seguinte linha :
+```bash
+VITE_APP_UNSPLASH_API_KEY=w1KKR8LgaHDmdo_QuwmG6IIChheUGW_IxtBbXlQ2_r8
+```
+Inicie a aplicação:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+Se você estiver usando npm:
+```bash
+npm run dev
+```
+Ou, se estiver usando yarn:
+```bash
+
+yarn dev
 ```
