@@ -20,8 +20,12 @@ const PhotoGrid = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchPhotos = async () => {
-    setLoading(true);
-    setError(null);
+    if (searchTerm !== "") {
+      setLoading(true);
+      setError(null);
+    } else {
+      setError('');
+    }
     try {
       const apiKey = import.meta.env.VITE_APP_UNSPLASH_API_KEY;
 
@@ -104,7 +108,8 @@ const PhotoGrid = () => {
                 </div>
               </div>
             ))
-          : !loading && (
+          : !loading &&
+            searchTerm.trim() !== "" && (
               <div className="col-span-3 text-center">
                 {error ? (
                   <p className="text-red-500">Nenhuma foto encontrada</p>
